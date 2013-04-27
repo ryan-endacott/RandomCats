@@ -2,11 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+
     <title>Random Cats!</title>
+
+    <style type="text/css">
+      #header {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+
+      #catdiv {
+        margin-left: auto;
+        margin-right: auto;
+        width: 960px;
+      }
+
+      #catimg {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 500px;
+        border: 5px;
+        border-radius: 5px;
+        -webkit-transform: rotate(-2deg);
+        -moz-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+        -webkit-transition: -webkit-transform .15s linear;
+        -webkit-box-shadow: 0 10px 20px rgba(0,0,0,.25);
+        -moz-box-shadow: 0 10px 20px rgba(0,0,0,.25);
+        -webkit-box-shadow: 0 10px 20px rgba(0,0,0,.5);
+        -moz-box-shadow: 0 10px 20px rgba(0,0,0,.5);
+      }
+
+      #catimg:hover {
+        -webkit-transform: scale(1.25);
+        -moz-transform: scale(1.25);
+        position: relative;
+        z-index: 5;
+      }
+
+
+    </style>
 
   </head>
 
   <body>
-    <img src="{{cat_source}}">
+    <div id="header">
+      <h1>Random Cats</h1>
+    </div>
+    <div id="catdiv">
+      <img id="catimg" src="{{cat_source}}">
+    </div>
   </body>
 </html>

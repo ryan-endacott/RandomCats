@@ -24,10 +24,23 @@ body {
   width: 960px;
 }
 
-#singlecatimg {
-  width: 100%;
+#singlecatdiv li {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+#singlecatdiv a {
+  -webkit-transform:rotate(0deg);
+  -moz-transform:rotate(0deg);
+  -ms-transform:rotate(0deg);
+  -o-transform:rotate(0deg);
+  transform:rotate(0deg); 
+}
+
+#singlecatimg {
+  width: 270px;
+}
 
 /* Polaroid effect for all cats page.
    Source:  http://zurb.com/playground/css3-polaroids
@@ -68,9 +81,6 @@ transition:transform .15s linear;
 ul.polaroids img{
 display:block;
 width:190px;
-}
-ul.polaroids a:after{
-content:attr(title);
 }
 ul.polaroids li:nth-child(even) a{
 -webkit-transform:rotate(2deg);

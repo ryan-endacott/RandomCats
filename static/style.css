@@ -42,6 +42,20 @@ body {
   width: 270px;
 }
 
+.clear {
+  clear: both;
+}
+
+#footer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}
+
+#footer p {
+  font: 12px Helvetica, Arial, Sans-Serif;
+}
+
 /* Polaroid effect for all cats page.
    Source:  http://zurb.com/playground/css3-polaroids
 */

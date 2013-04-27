@@ -7,7 +7,7 @@ app = Flask(__name__, static_path = '/assets')
 
 # A bad hack to make dot syntax work for dictionaries
 # This way accessing setting module variables can be the same
-# as accessing dictionary elements
+# as accessing dictionary elements when loading the environment vars
 class AttrDict(defaultdict):
   __getattr__= defaultdict.__getitem__
   __setattr__= defaultdict.__setitem__
@@ -59,5 +59,4 @@ def get_random_cat_url():
 
 
 if __name__ == '__main__':
-  app.run(use_debugger=True, debug=True,
-            use_reloader=True, host='0.0.0.0')
+  app.run()

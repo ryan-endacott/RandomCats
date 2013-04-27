@@ -10,7 +10,7 @@ def try_to_load_settings():
   try:
     import settings
   except ImportError:
-    return defaultdict(None)
+    return defaultdict(False)
   else:
     return settings
 

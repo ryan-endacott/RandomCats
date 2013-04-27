@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from dropbox import client, session
 from collections import defaultdict
 app = Flask(__name__)
@@ -28,7 +28,9 @@ client = client.DropboxClient(sess)
 
 @app.route('/')
 def random_cat():
-    return 'hi'
+  src = client.media('/first.jpg')['url']
+  return render_template('application.html', cat_source=src)
 
 if __name__ == '__main__':
-    app.run()
+  app.run(use_debugger=True, debug=True,
+            use_reloader=True, host='0.0.0.0')

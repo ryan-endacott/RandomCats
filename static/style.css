@@ -53,7 +53,9 @@ body {
 }
 
 #footer p {
-  font: 12px Helvetica, Arial, Sans-Serif;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font: 14px Helvetica, Arial, Sans-Serif;
 }
 
 /* Polaroid effect for all cats page.

@@ -9,6 +9,15 @@ body {
   text-align: center;
 }
 
+#header h1 {
+  display: block;
+  text-decoration: none;
+  font: 70px Helvetica, Arial, Sans-Serif;
+  text-align: center;
+  color: #999;
+  text-shadow: 0px 3px 8px #2a2a2a;
+}
+
 #catdiv {
   margin-left: auto;
   margin-right: auto;

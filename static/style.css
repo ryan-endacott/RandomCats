@@ -54,7 +54,6 @@ transition:transform .15s linear;
 ul.polaroids img{
 display:block;
 width:190px;
-margin-bottom:12px;
 }
 ul.polaroids a:after{
 content:attr(title);

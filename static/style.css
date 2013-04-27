@@ -1,0 +1,15 @@
+#header {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#catdiv {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}
+
+#singlecatimg {
+  width: 100%;
+}

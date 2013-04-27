@@ -14,13 +14,7 @@
       <h1>Random Cats</h1>
     </div>
     <div id="catdiv">
-      <ul class="polaroids">
-        {% for url in cat_urls %}
-          <a href="{{url}}">
-            <img class="catimg" src="{{url}}">
-          </a>
-        {% endfor %}
-      </ul>
+      <img id="singlecatimg" src="{{cat_source}}">
     </div>
   </body>
 </html>

@@ -2,8 +2,8 @@ import os
 from flask import Flask, render_template
 from dropbox import client, session
 from collections import defaultdict
-from random import choice
-app = Flask(__name__)
+from random import shuffle, choice
+app = Flask(__name__, static_path = '/assets')
 
 
 def try_to_load_settings():
@@ -27,14 +27,27 @@ sess = session.DropboxSession(APP_KEY,APP_SECRET, ACCESS_TYPE )
 sess.set_token(TOKEN_KEY, TOKEN_SECRET)
 client = client.DropboxClient(sess)
 
+
 @app.route('/')
+def all_cats():
+  return render_template('application.html', cat_urls=get_all_cat_urls())
+
+@app.route('/random_cat')
 def random_cat():
-  src = get_random_cat_url()
-  return render_template('application.html', cat_source=src)
+  return render_template('singlecat.html', cat_source=get_random_cat_url())
+
+def get_cat_paths():
+  files = client.metadata('/')['contents'] # Get all the files in cat folder
+  paths = [file['path'] for file in files] # Get the paths of all files
+  shuffle(paths) 
+  return paths
+
+def get_all_cat_urls():
+  return [client.media(path)['url'] for path in get_cat_paths()] # Get media url for each path
+
 
 def get_random_cat_url():
-  contents = client.metadata('/')['contents'] # Get all the files in cat folder
-  path = choice(contents)['path'] # Select a random one and get its path
+  path = get_cat_paths()[0] # First one will be random because it was shuffled
   return client.media(path)['url'] # Return the dropbox media url
 
 

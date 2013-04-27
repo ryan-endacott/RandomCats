@@ -8,16 +8,16 @@ app = Flask(__name__, static_path = '/assets')
 # A bad hack to make dot syntax work for dictionaries
 # This way accessing setting module variables can be the same
 # as accessing dictionary elements
-class AttrDict(dict):
-  __getattr__= dict.__getitem__
-  __setattr__= dict.__setitem__
-  __delattr__= dict.__delitem__
+class AttrDict(defaultdict):
+  __getattr__= defaultdict.__getitem__
+  __setattr__= defaultdict.__setitem__
+  __delattr__= defaultdict.__delitem__
 
 def try_to_load_settings():
   try:
     import settings
   except ImportError:
-    return AttrDict()
+    return AttrDict(lambda: False)
   else:
     return settings
 

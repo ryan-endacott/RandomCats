@@ -2,7 +2,11 @@ import os
 from flask import Flask, render_template
 from dropbox import client, session
 from collections import defaultdict
-from random import shuffle, choice
+from random import shuffle
+from datetime import datetime, timedelta
+from dateutil import parser
+import pytz
+
 app = Flask(__name__, static_path = '/assets')
 
 # A bad hack to make dot syntax work for dictionaries
@@ -34,29 +38,32 @@ sess = session.DropboxSession(APP_KEY,APP_SECRET, ACCESS_TYPE )
 sess.set_token(TOKEN_KEY, TOKEN_SECRET)
 client = client.DropboxClient(sess)
 
-
 @app.route('/')
 def all_cats():
-  return render_template('application.html', cat_urls=get_all_cat_urls())
+  return render_template('application.html', cat_urls=get_cat_urls())
 
 @app.route('/random_cat')
 def random_cat():
-  return render_template('singlecat.html', cat_source=get_random_cat_url())
+  return render_template('singlecat.html', cat_source=get_cat_urls()[0])
 
-def get_cat_paths():
+def request_cat_media_links():
   files = client.metadata('/')['contents'] # Get all the files in cat folder
   paths = [file['path'] for file in files] # Get the paths of all files
-  shuffle(paths) 
-  return paths
+  return [client.media(path) for path in paths] # Get media for each path
 
-def get_all_cat_urls():
-  return [client.media(path)['url'] for path in get_cat_paths()] # Get media url for each path
+def get_cat_urls():
+  # If media links are expired, get new ones
+  if get_cat_urls.expiration < datetime.now(pytz.utc):
+    print 'Media links are expired, getting new ones'
+    links = request_cat_media_links()
+    get_cat_urls.expiration = parser.parse(links[0]['expires']) # Get the expiration of the first one requested
+    get_cat_urls.urls = [media['url'] for media in links] # Get the URLs
 
+  shuffle(get_cat_urls.urls)
+  return get_cat_urls.urls
 
-def get_random_cat_url():
-  path = get_cat_paths()[0] # First one will be random because it was shuffled
-  return client.media(path)['url'] # Return the dropbox media url
-
+# Set to already expired (yesterday) to begin with
+get_cat_urls.expiration = datetime.now(pytz.utc)-timedelta(days=1)
 
 if __name__ == '__main__':
   app.run()

@@ -16,9 +16,11 @@
     <div id="catdiv">
       <ul class="polaroids">
         {% for url in cat_urls %}
-          <a href="{{url}}">
-            <img class="catimg" src="{{url}}">
-          </a>
+          <li>
+            <a href="{{url}}">
+              <img class="catimg" src="{{url}}">
+            </a>
+          </li>
         {% endfor %}
       </ul>
     </div>

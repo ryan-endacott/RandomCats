@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template
 from dropbox import client, session
 from collections import defaultdict
+from random import choice
 app = Flask(__name__)
 
 
@@ -28,8 +29,14 @@ client = client.DropboxClient(sess)
 
 @app.route('/')
 def random_cat():
-  src = client.media('/first.jpg')['url']
+  src = get_random_cat_url()
   return render_template('application.html', cat_source=src)
+
+def get_random_cat_url():
+  contents = client.metadata('/')['contents'] # Get all the files in cat folder
+  path = choice(contents)['path'] # Select a random one and get its path
+  return client.media(path)['url'] # Return the dropbox media url
+
 
 if __name__ == '__main__':
   app.run(use_debugger=True, debug=True,
